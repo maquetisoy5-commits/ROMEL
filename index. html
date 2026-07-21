@@ -1,1 +1,171 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Event Management System</title>
+
+    <style>
+        /* CSS: Design and Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .event-list {
+            margin-top: 20px;
+        }
+
+        .event-card {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .event-card h3 {
+            color: #007BFF;
+        }
+
+        .delete-btn {
+            background: red;
+            margin-top: 10px;
+        }
+
+        .delete-btn:hover {
+            background: darkred;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Event Management System</h1>
+
+    <!-- Event Form -->
+    <div class="form-group">
+        <label>Event Name</label>
+        <input type="text" id="eventName" placeholder="Enter event name">
+    </div>
+
+    <div class="form-group">
+        <label>Event Date</label>
+        <input type="date" id="eventDate">
+    </div>
+
+    <div class="form-group">
+        <label>Event Location</label>
+        <input type="text" id="eventLocation" placeholder="Enter location">
+    </div>
+
+    <div class="form-group">
+        <label>Event Description</label>
+        <textarea id="eventDescription" rows="3" placeholder="Enter description"></textarea>
+    </div>
+
+    <button onclick="addEvent()">Add Event</button>
+
+    <!-- Event List -->
+    <div class="event-list" id="eventList"></div>
+</div>
+
+<script>
+    // JavaScript: Functionality
+
+    function addEvent() {
+        // Get values from input fields
+        const name = document.getElementById("eventName").value;
+        const date = document.getElementById("eventDate").value;
+        const location = document.getElementById("eventLocation").value;
+        const description = document.getElementById("eventDescription").value;
+
+        // Check if all fields are filled
+        if (name === "" || date === "" || location === "" || description === "") {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        // Create a new event card
+        const eventCard = document.createElement("div");
+        eventCard.classList.add("event-card");
+
+        eventCard.innerHTML = `
+            <h3>${name}</h3>
+            <p><strong>Date:</strong> ${date}</p>
+            <p><strong>Location:</strong> ${location}</p>
+            <p><strong>Description:</strong> ${description}</p>
+            <button class="delete-btn" onclick="deleteEvent(this)">Delete</button>
+        `;
+
+        // Add the event card to the event list
+        document.getElementById("eventList").appendChild(eventCard);
+
+        // Clear the form
+        document.getElementById("eventName").value = "";
+        document.getElementById("eventDate").value = "";
+        document.getElementById("eventLocation").value = "";
+        document.getElementById("eventDescription").value = "";
+    }
+
+    function deleteEvent(button) {
+        // Remove the event card
+        button.parentElement.remove();
+    }
+</script>
+
+</body>
+</html>
